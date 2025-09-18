@@ -30,10 +30,31 @@ jobs:
           node-version: ${{ matrix.node }}
           architecture: ${{ matrix.architecture }}
 
+      - name: Setup Python
+        if: matrix.architecture == 'x86'
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install Windows build tools
+        if: matrix.architecture == 'x86'
+        run: |
+          # Install Visual Studio Build Tools for x86 builds
+          npm install --global --production windows-build-tools
+          # Set Python path for node-gyp
+          npm config set python python
+        shell: powershell
+
+      - name: Clear npm cache
+        if: matrix.node == 22 && matrix.architecture == 'x86'
+        run: npm cache clean --force
+        shell: powershell
+
       - name: Install packages
-        run: npm install
+        run: npm install --unsafe-perm
         env:
           SKIP_SASS_BINARY_DOWNLOAD_FOR_CI: true
+        shell: powershell
 
       - name: Run tests
         run: npm test
