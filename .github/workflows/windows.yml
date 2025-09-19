@@ -36,13 +36,16 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install Windows build tools
+      - name: Configure build environment for x86
         if: matrix.architecture == 'x86'
         run: |
-          # Install Visual Studio Build Tools for x86 builds
-          npm install --global --production windows-build-tools
-          # Set Python path for node-gyp
-          npm config set python python
+          # Set up environment variables for x86 builds
+          $env:npm_config_arch = "ia32"
+          $env:npm_config_target_arch = "ia32"
+          $env:npm_config_target_platform = "win32"
+          # Configure node-gyp for x86
+          npm config set target_arch ia32
+          npm config set target_platform win32
         shell: powershell
 
       - name: Clear npm cache
@@ -54,6 +57,9 @@ jobs:
         run: npm install --unsafe-perm
         env:
           SKIP_SASS_BINARY_DOWNLOAD_FOR_CI: true
+          npm_config_arch: ${{ matrix.architecture == 'x86' && 'ia32' || 'x64' }}
+          npm_config_target_arch: ${{ matrix.architecture == 'x86' && 'ia32' || 'x64' }}
+          npm_config_target_platform: win32
         shell: powershell
 
       - name: Run tests
