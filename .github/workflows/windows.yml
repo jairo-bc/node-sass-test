@@ -30,37 +30,10 @@ jobs:
           node-version: ${{ matrix.node }}
           architecture: ${{ matrix.architecture }}
 
-      - name: Setup Python
-        if: matrix.architecture == 'x86'
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
-
-      - name: Configure build environment for x86
-        if: matrix.architecture == 'x86'
-        run: |
-          # Set up environment variables for x86 builds
-          $env:npm_config_arch = "ia32"
-          $env:npm_config_target_arch = "ia32"
-          $env:npm_config_target_platform = "win32"
-          # Configure node-gyp for x86
-          npm config set target_arch ia32
-          npm config set target_platform win32
-        shell: powershell
-
-      - name: Clear npm cache
-        if: matrix.node == 22 && matrix.architecture == 'x86'
-        run: npm cache clean --force
-        shell: powershell
-
       - name: Install packages
-        run: npm install --unsafe-perm
+        run: npm install
         env:
           SKIP_SASS_BINARY_DOWNLOAD_FOR_CI: true
-          npm_config_arch: ${{ matrix.architecture == 'x86' && 'ia32' || 'x64' }}
-          npm_config_target_arch: ${{ matrix.architecture == 'x86' && 'ia32' || 'x64' }}
-          npm_config_target_platform: win32
-        shell: powershell
 
       - name: Run tests
         run: npm test
