@@ -34,11 +34,12 @@ jobs:
         run: |
             choco install visualstudio2019buildtools --package-parameters "--add Microsoft.VisualStudio.Component.VC.Tools.x86.x64"
   
+      - run: npm config set msvs_version 2019
       - name: Install packages
         run: npm install
         env:
           SKIP_SASS_BINARY_DOWNLOAD_FOR_CI: true
-          GYP_MSVS_VERSION: 2019  # Keep in sync with the Visual Studio version installed above
+          # GYP_MSVS_VERSION: 2019  # Keep in sync with the Visual Studio version installed above
 
       - name: Run tests
         run: npm test
