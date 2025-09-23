@@ -96,7 +96,7 @@ namespace Sass {
 
     } else if (this->isSelector()){
 
-      return *this->selector() == *rhs.selector();
+      return this->selector()->operator==(*rhs.selector());
 
     } else if (this->isCollection()) {
 
