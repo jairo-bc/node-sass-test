@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-2019
+    runs-on: windows-2022
 
     strategy:
       fail-fast: false
@@ -30,7 +30,8 @@ jobs:
           node-version: ${{ matrix.node }}
           architecture: ${{ matrix.architecture }}
 
-      - run: npx node-gyp rebuild --msvs_version=2015
+      - run: choco install python visualstudio2017-workload-vctools -y
+      - run: npx node-gyp configure --msvs_version=2017
       # - name: Install Visual Studio 2022 Build Tools
       #   run: |
       #     choco install python visualstudio2022-workload-vctools -y
