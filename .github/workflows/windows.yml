@@ -38,7 +38,7 @@ jobs:
       
       # - run: npm config set msvs_version 2019
       - name: Install packages
-        run: npm install --build-from-source --msvs_version=2017
+        run: npm install
         env:
           SKIP_SASS_BINARY_DOWNLOAD_FOR_CI: true
           # GYP_MSVS_VERSION: 2019  # Keep in sync with the Visual Studio version installed above
