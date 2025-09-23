@@ -24,6 +24,8 @@ describe('binding', function() {
     });
 
     it('should list currently installed bindings', function() {
+      console.log(etx.getHumanEnvironment());
+      console.log(etx.getBinaryName());
       assert.throws(
         function() { binding(etx); },
         function(err) {

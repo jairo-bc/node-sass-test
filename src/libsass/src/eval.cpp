@@ -576,12 +576,12 @@ namespace Sass {
       if (Number_Ptr r_n = Cast<Number>(rhs)) {
         try {
           switch (op_type) {
-            case Sass_OP::EQ: return *l_n == *r_n ? bool_true : bool_false;
-            case Sass_OP::NEQ: return *l_n == *r_n ? bool_false : bool_true;
+            case Sass_OP::EQ: return l_n->operator==(*r_n) ? bool_true : bool_false;
+            case Sass_OP::NEQ: return l_n->operator==(*r_n) ? bool_false : bool_true;
             case Sass_OP::LT: return *l_n < *r_n ? bool_true : bool_false;
             case Sass_OP::GTE: return *l_n < *r_n ? bool_false : bool_true;
-            case Sass_OP::LTE: return *l_n < *r_n || *l_n == *r_n ? bool_true : bool_false;
-            case Sass_OP::GT: return *l_n < *r_n || *l_n == *r_n ? bool_false : bool_true;
+            case Sass_OP::LTE: return *l_n < *r_n || l_n->operator==(*r_n) ? bool_true : bool_false;
+            case Sass_OP::GT: return *l_n < *r_n || l_n->operator==(*r_n) ? bool_false : bool_true;
             case Sass_OP::ADD: case Sass_OP::SUB: case Sass_OP::MUL: case Sass_OP::DIV: case Sass_OP::MOD:
               return Operators::op_numbers(op_type, *l_n, *r_n, ctx.c_options, b_in->pstate());
             default: break;
@@ -597,8 +597,8 @@ namespace Sass {
       else if (Color_Ptr r_c = Cast<Color>(rhs)) {
         try {
           switch (op_type) {
-            case Sass_OP::EQ: return *l_n == *r_c ? bool_true : bool_false;
-            case Sass_OP::NEQ: return *l_n == *r_c ? bool_false : bool_true;
+            case Sass_OP::EQ: return l_n->operator==(*r_c) ? bool_true : bool_false;
+            case Sass_OP::NEQ: return l_n->operator==(*r_c) ? bool_false : bool_true;
             case Sass_OP::ADD: case Sass_OP::SUB: case Sass_OP::MUL: case Sass_OP::DIV: case Sass_OP::MOD:
               return Operators::op_number_color(op_type, *l_n, *r_c, ctx.c_options, b_in->pstate());
             default: break;
@@ -616,12 +616,12 @@ namespace Sass {
       if (Color_Ptr r_c = Cast<Color>(rhs)) {
         try {
           switch (op_type) {
-            case Sass_OP::EQ: return *l_c == *r_c ? bool_true : bool_false;
-            case Sass_OP::NEQ: return *l_c == *r_c ? bool_false : bool_true;
+            case Sass_OP::EQ: return l_c->operator==(*r_c) ? bool_true : bool_false;
+            case Sass_OP::NEQ: return l_c->operator==(*r_c) ? bool_false : bool_true;
             case Sass_OP::LT: return *l_c < *r_c ? bool_true : bool_false;
             case Sass_OP::GTE: return *l_c < *r_c ? bool_false : bool_true;
-            case Sass_OP::LTE: return *l_c < *r_c || *l_c == *r_c ? bool_true : bool_false;
-            case Sass_OP::GT: return *l_c < *r_c || *l_c == *r_c ? bool_false : bool_true;
+            case Sass_OP::LTE: return *l_c < *r_c || l_c->operator==(*r_c) ? bool_true : bool_false;
+            case Sass_OP::GT: return *l_c < *r_c || l_c->operator==(*r_c) ? bool_false : bool_true;
             case Sass_OP::ADD: case Sass_OP::SUB: case Sass_OP::MUL: case Sass_OP::DIV: case Sass_OP::MOD:
               return Operators::op_colors(op_type, *l_c, *r_c, ctx.c_options, b_in->pstate());
             default: break;
@@ -637,8 +637,8 @@ namespace Sass {
       else if (Number_Ptr r_n = Cast<Number>(rhs)) {
         try {
           switch (op_type) {
-            case Sass_OP::EQ: return *l_c == *r_n ? bool_true : bool_false;
-            case Sass_OP::NEQ: return *l_c == *r_n ? bool_false : bool_true;
+            case Sass_OP::EQ: return l_c->operator==(*r_n) ? bool_true : bool_false;
+            case Sass_OP::NEQ: return l_c->operator==(*r_n) ? bool_false : bool_true;
             case Sass_OP::ADD: case Sass_OP::SUB: case Sass_OP::MUL: case Sass_OP::DIV: case Sass_OP::MOD:
               return Operators::op_color_number(op_type, *l_c, *r_n, ctx.c_options, b_in->pstate());
             default: break;
