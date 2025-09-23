@@ -31,14 +31,14 @@ jobs:
           architecture: ${{ matrix.architecture }}
 
       - run: choco install python visualstudio2017-workload-vctools -y
-      - run: npx node-gyp configure
+      # - run: npx node-gyp configure
       # - name: Install Visual Studio 2022 Build Tools
       #   run: |
       #     choco install python visualstudio2022-workload-vctools -y
       
       # - run: npm config set msvs_version 2019
       - name: Install packages
-        run: npm install
+        run: npm install --build-from-source --msvs_version=2017
         env:
           SKIP_SASS_BINARY_DOWNLOAD_FOR_CI: true
           # GYP_MSVS_VERSION: 2019  # Keep in sync with the Visual Studio version installed above
